@@ -60,12 +60,10 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
           app-name: 'webapp-laszlo-test'
-          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FE83027C5CF54FDC91A9638B45741353 }}
