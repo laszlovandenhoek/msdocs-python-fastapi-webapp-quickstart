@@ -35,10 +35,7 @@ jobs:
         run: git rev-parse HEAD > git_hash.txt
 
       - name: Install dependencies
-        run: |
-          uv venv
-          uv export --format requirements-txt --no-hashes --output-file requirements.txt
-          uv pip install -r requirements.txt
+        run: uv export --format requirements-txt --no-hashes --output-file requirements.txt
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
