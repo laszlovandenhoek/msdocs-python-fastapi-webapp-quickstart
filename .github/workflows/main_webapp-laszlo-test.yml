@@ -24,6 +24,9 @@ jobs:
         with:
           python-version: '3.13'
 
+      - name: Extract Git hash
+        run: git rev-parse HEAD > git_hash.txt
+
       - name: Create and start virtual environment
         run: |
           python -m venv venv

@@ -9,10 +9,18 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
+def get_git_hash():
+    try:
+        with open('git_hash.txt', 'r') as f:
+            return f.read().strip()
+    except FileNotFoundError:
+        return "Unknown"
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     print('Request for index page received')
-    return templates.TemplateResponse('index.html', {"request": request})
+    git_hash = get_git_hash()
+    return templates.TemplateResponse('index.html', {"request": request, "git_hash": git_hash})
 
 @app.get('/favicon.ico')
 async def favicon():
