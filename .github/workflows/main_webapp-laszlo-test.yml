@@ -24,16 +24,17 @@ jobs:
         with:
           python-version: '3.13'
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Extract Git hash
         run: git rev-parse HEAD > git_hash.txt
 
-      - name: Create and start virtual environment
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-      
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          uv venv
+          uv export --format requirements-txt --no-hashes --output-file requirements.txt
+          uv pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
